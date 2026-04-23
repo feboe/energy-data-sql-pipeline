@@ -13,11 +13,17 @@ class SmardConfig:
 
 
 def build_index_url(config: SmardConfig) -> str:
-    return f"{BASE_URL}/{config.smard_filter_id}/{config.region}/index_{config.resolution}.json"
+    return (
+        f"{BASE_URL}/{config.smard_filter_id}/{config.region}/index_"
+        f"{config.resolution}.json"
+    )
 
 
 def build_payload_url(config: SmardConfig, timestamp: int) -> str:
-    return f"{BASE_URL}/{config.smard_filter_id}/{config.region}/{config.smard_filter_id}_{config.region}_{config.resolution}_{timestamp}.json"
+    return (
+        f"{BASE_URL}/{config.smard_filter_id}/{config.region}/{config.smard_filter_id}_"
+        f"{config.region}_{config.resolution}_{timestamp}.json"
+    )
 
 
 def get_timestamps(config: SmardConfig) -> list[int]:
