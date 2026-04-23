@@ -17,7 +17,7 @@ def load_env_file(env_path: Path = Path(".env")) -> None:
         os.environ.setdefault(key.strip(), value.strip())
 
 
-@dataclass
+@dataclass(frozen=True)
 class DatabaseConfig:
     host: str = "localhost"
     port: int = 5432
