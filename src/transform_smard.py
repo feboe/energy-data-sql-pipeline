@@ -1,15 +1,18 @@
 from datetime import datetime, timezone
+
 import pandas as pd
+
 from src.smard_client import SmardConfig
 
 SOURCE_SYSTEM = "SMARD"
-HOURLY_MEASUREMENT_COLUMNS = [
+MEASUREMENT_COLUMNS = [
     "raw_import_id",
     "source_system",
+    "source_series_id",
     "series_name",
-    "smard_filter_id",
     "region",
     "resolution",
+    "unit",
     "observation_timestamp_ms",
     "observation_timestamp",
     "value",
@@ -25,15 +28,17 @@ def build_raw_import_record(
     timestamp: int,
     payload: dict,
     series_name: str,
+    unit: str,
     source_url: str,
 ) -> dict:
     timestamp_dt = timestamp_ms_to_datetime(timestamp)
     return {
         "source_system": SOURCE_SYSTEM,
+        "source_series_id": config.smard_filter_id,
         "series_name": series_name,
-        "smard_filter_id": config.smard_filter_id,
         "region": config.region,
         "resolution": config.resolution,
+        "unit": unit,
         "chunk_timestamp_ms": timestamp,
         "chunk_timestamp": timestamp_dt,
         "source_url": source_url,
@@ -41,11 +46,12 @@ def build_raw_import_record(
     }
 
 
-def extract_hourly_measurements(
+def extract_measurements(
     payload: dict,
     raw_import_id: int,
     config: SmardConfig,
     series_name: str,
+    unit: str,
 ) -> pd.DataFrame:
 
     if "series" not in payload:
@@ -54,11 +60,12 @@ def extract_hourly_measurements(
     df = pd.DataFrame(payload["series"], columns=["observation_timestamp_ms", "value"])
     df["raw_import_id"] = raw_import_id
     df["source_system"] = SOURCE_SYSTEM
+    df["source_series_id"] = config.smard_filter_id
     df["series_name"] = series_name
-    df["smard_filter_id"] = config.smard_filter_id
     df["region"] = config.region
     df["resolution"] = config.resolution
+    df["unit"] = unit
     df["observation_timestamp"] = df["observation_timestamp_ms"].apply(
         timestamp_ms_to_datetime
     )
-    return df[HOURLY_MEASUREMENT_COLUMNS]
+    return df[MEASUREMENT_COLUMNS]

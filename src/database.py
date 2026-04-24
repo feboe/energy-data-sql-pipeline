@@ -3,7 +3,7 @@ from pathlib import Path
 from psycopg.types.json import Jsonb
 from src.config import DatabaseConfig
 import pandas as pd
-from src.transform_smard import HOURLY_MEASUREMENT_COLUMNS
+from src.transform_smard import MEASUREMENT_COLUMNS
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
@@ -35,7 +35,7 @@ def create_tables(connection: psycopg.Connection) -> None:
 def insert_raw_import(connection: psycopg.Connection, raw_import_record: dict) -> int:
     identity = (
         raw_import_record["source_system"],
-        raw_import_record["smard_filter_id"],
+        raw_import_record["source_series_id"],
         raw_import_record["region"],
         raw_import_record["resolution"],
         raw_import_record["chunk_timestamp_ms"],
@@ -46,19 +46,20 @@ def insert_raw_import(connection: psycopg.Connection, raw_import_record: dict) -
             """
             INSERT INTO raw_imports (
                 source_system,
+                source_series_id,
                 series_name,
-                smard_filter_id,
                 region,
                 resolution,
+                unit,
                 chunk_timestamp_ms,
                 chunk_timestamp,
                 source_url,
                 raw_payload
             )
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             ON CONFLICT (
                 source_system,
-                smard_filter_id,
+                source_series_id,
                 region,
                 resolution,
                 chunk_timestamp_ms
@@ -68,10 +69,11 @@ def insert_raw_import(connection: psycopg.Connection, raw_import_record: dict) -
             """,
             (
                 raw_import_record["source_system"],
+                raw_import_record["source_series_id"],
                 raw_import_record["series_name"],
-                raw_import_record["smard_filter_id"],
                 raw_import_record["region"],
                 raw_import_record["resolution"],
+                raw_import_record["unit"],
                 raw_import_record["chunk_timestamp_ms"],
                 raw_import_record["chunk_timestamp"],
                 raw_import_record["source_url"],
@@ -90,7 +92,7 @@ def insert_raw_import(connection: psycopg.Connection, raw_import_record: dict) -
             SELECT id
             FROM raw_imports
             WHERE source_system = %s
-            AND smard_filter_id = %s
+            AND source_series_id = %s
             AND region = %s
             AND resolution = %s
             AND chunk_timestamp_ms = %s;
@@ -107,32 +109,33 @@ def insert_raw_import(connection: psycopg.Connection, raw_import_record: dict) -
     return existing_row[0]
 
 
-def insert_hourly_measurements(
-    connection: psycopg.Connection, hourly_measurements_df: pd.DataFrame
+def insert_measurements(
+    connection: psycopg.Connection, measurements_df: pd.DataFrame
 ) -> None:
-    cols = HOURLY_MEASUREMENT_COLUMNS
+    cols = MEASUREMENT_COLUMNS
     records = [
         tuple(None if pd.isna(v) else v for v in row)
-        for row in hourly_measurements_df[cols].itertuples(index=False, name=None)
+        for row in measurements_df[cols].itertuples(index=False, name=None)
     ]
     with connection.cursor() as cursor:
         cursor.executemany(
             """
-            INSERT INTO hourly_measurements (
+            INSERT INTO measurements (
                 raw_import_id,
                 source_system,
+                source_series_id,
                 series_name,
-                smard_filter_id,
                 region,
                 resolution,
+                unit,
                 observation_timestamp_ms,
                 observation_timestamp,
                 value
             )
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             ON CONFLICT (
                 source_system,
-                smard_filter_id,
+                source_series_id,
                 region,
                 resolution,
                 observation_timestamp_ms

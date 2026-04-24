@@ -6,7 +6,7 @@ import pandas as pd
 from src.config import load_database_config
 from src.database import (
     create_tables,
-    insert_hourly_measurements,
+    insert_measurements,
     insert_raw_import,
     open_connection,
 )
@@ -14,7 +14,7 @@ from src.smard_catalog import SmardSeries
 from src.smard_client import build_payload_url, get_payload, get_timestamps
 from src.transform_smard import (
     build_raw_import_record,
-    extract_hourly_measurements,
+    extract_measurements,
     timestamp_ms_to_datetime,
 )
 
@@ -59,19 +59,19 @@ def filter_chunk_timestamps(
     return selected_timestamps
 
 
-def filter_hourly_measurements_for_period(
-    hourly_measurements_df: pd.DataFrame,
+def filter_measurements_for_period(
+    measurements_df: pd.DataFrame,
     start_date: datetime,
     end_date: datetime | None = None,
 ) -> pd.DataFrame:
     start_utc = normalize_datetime_to_utc(start_date)
-    mask = hourly_measurements_df["observation_timestamp"] >= start_utc
+    mask = measurements_df["observation_timestamp"] >= start_utc
 
     if end_date is not None:
         end_utc = normalize_datetime_to_utc(end_date)
-        mask &= hourly_measurements_df["observation_timestamp"] <= end_utc
+        mask &= measurements_df["observation_timestamp"] <= end_utc
 
-    return hourly_measurements_df.loc[mask].reset_index(drop=True)
+    return measurements_df.loc[mask].reset_index(drop=True)
 
 
 def ingest_smard_series(
@@ -88,7 +88,7 @@ def ingest_smard_series(
     )
 
     processed_chunk_count = 0
-    hourly_row_count = 0
+    measurement_row_count = 0
 
     with open_connection(database_config) as connection:
         create_tables(connection)
@@ -101,30 +101,32 @@ def ingest_smard_series(
                 timestamp=timestamp_ms,
                 payload=payload,
                 series_name=series.series_name,
+                unit=series.unit,
                 source_url=source_url,
             )
             raw_import_id = insert_raw_import(connection, raw_import_record)
 
-            hourly_measurements_df = extract_hourly_measurements(
+            measurements_df = extract_measurements(
                 payload=payload,
                 raw_import_id=raw_import_id,
                 config=series.config,
                 series_name=series.series_name,
+                unit=series.unit,
             )
-            filtered_hourly_measurements_df = filter_hourly_measurements_for_period(
-                hourly_measurements_df=hourly_measurements_df,
+            filtered_measurements_df = filter_measurements_for_period(
+                measurements_df=measurements_df,
                 start_date=start_date,
                 end_date=end_date,
             )
 
-            if not filtered_hourly_measurements_df.empty:
-                insert_hourly_measurements(connection, filtered_hourly_measurements_df)
-                hourly_row_count += len(filtered_hourly_measurements_df)
+            if not filtered_measurements_df.empty:
+                insert_measurements(connection, filtered_measurements_df)
+                measurement_row_count += len(filtered_measurements_df)
 
             processed_chunk_count += 1
 
     return {
         "processed_chunk_count": processed_chunk_count,
-        "hourly_row_count": hourly_row_count,
+        "measurement_row_count": measurement_row_count,
         "selected_chunk_count": len(selected_timestamps),
     }
