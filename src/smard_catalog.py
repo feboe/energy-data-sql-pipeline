@@ -180,6 +180,95 @@ PUMPED_STORAGE_CONSUMPTION = SmardSeries(
     ),
 )
 
+DAY_AHEAD_PRICE = SmardSeries(
+    series_name="day_ahead_price",
+    display_name="Day-ahead price",
+    category="market_price",
+    config=SmardConfig(
+        smard_filter_id="4169",
+        region="DE",
+        resolution="hour",
+    ),
+    unit="EUR/MWh",
+)
+
+FORECASTED_OFFSHORE_WIND_GENERATION = SmardSeries(
+    series_name="forecasted_offshore_wind_generation",
+    display_name="Forecasted offshore wind generation",
+    category="forecasted_generation",
+    config=SmardConfig(
+        smard_filter_id="3791",
+        region=DEFAULT_REGION,
+        resolution=DEFAULT_RESOLUTION,
+    ),
+)
+
+FORECASTED_ONSHORE_WIND_GENERATION = SmardSeries(
+    series_name="forecasted_onshore_wind_generation",
+    display_name="Forecasted onshore wind generation",
+    category="forecasted_generation",
+    config=SmardConfig(
+        smard_filter_id="123",
+        region=DEFAULT_REGION,
+        resolution=DEFAULT_RESOLUTION,
+    ),
+)
+
+FORECASTED_PHOTOVOLTAICS_GENERATION = SmardSeries(
+    series_name="forecasted_photovoltaics_generation",
+    display_name="Forecasted photovoltaics generation",
+    category="forecasted_generation",
+    config=SmardConfig(
+        smard_filter_id="125",
+        region=DEFAULT_REGION,
+        resolution=DEFAULT_RESOLUTION,
+    ),
+)
+
+FORECASTED_OTHER_GENERATION = SmardSeries(
+    series_name="forecasted_other_generation",
+    display_name="Forecasted other generation",
+    category="forecasted_generation",
+    config=SmardConfig(
+        smard_filter_id="715",
+        region=DEFAULT_REGION,
+        resolution=DEFAULT_RESOLUTION,
+    ),
+)
+
+FORECASTED_WIND_AND_PHOTOVOLTAICS_GENERATION = SmardSeries(
+    series_name="forecasted_wind_and_photovoltaics_generation",
+    display_name="Forecasted wind and photovoltaics generation",
+    category="forecasted_generation",
+    config=SmardConfig(
+        smard_filter_id="5097",
+        region=DEFAULT_REGION,
+        resolution=DEFAULT_RESOLUTION,
+    ),
+)
+
+FORECASTED_TOTAL_GENERATION = SmardSeries(
+    series_name="forecasted_total_generation",
+    display_name="Forecasted total generation",
+    category="forecasted_generation",
+    config=SmardConfig(
+        smard_filter_id="122",
+        region=DEFAULT_REGION,
+        resolution=DEFAULT_RESOLUTION,
+    ),
+)
+
+# FORECASTED_GRID_LOAD = SmardSeries(
+#     series_name="forecasted_grid_load",
+#     display_name="Forecasted grid load",
+#     category="forecasted_consumption",
+#     config=SmardConfig(
+#         smard_filter_id="411",
+#         region=DEFAULT_REGION,
+#         resolution=DEFAULT_RESOLUTION,
+#     ),
+# )
+
 SMARD_SERIES = (
     LIGNITE_GENERATION,
     NUCLEAR_GENERATION,
@@ -196,6 +285,14 @@ SMARD_SERIES = (
     GRID_LOAD,
     RESIDUAL_LOAD,
     PUMPED_STORAGE_CONSUMPTION,
+    DAY_AHEAD_PRICE,
+    FORECASTED_OFFSHORE_WIND_GENERATION,
+    FORECASTED_ONSHORE_WIND_GENERATION,
+    FORECASTED_PHOTOVOLTAICS_GENERATION,
+    FORECASTED_OTHER_GENERATION,
+    FORECASTED_WIND_AND_PHOTOVOLTAICS_GENERATION,
+    FORECASTED_TOTAL_GENERATION,
+    # FORECASTED_GRID_LOAD,
 )
 
 SMARD_SERIES_CATALOG = {series.series_name: series for series in SMARD_SERIES}
