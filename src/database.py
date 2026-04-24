@@ -32,6 +32,11 @@ def create_tables(connection: psycopg.Connection) -> None:
     execute_sql_file(connection, sql_file_path)
 
 
+def create_views(connection: psycopg.Connection) -> None:
+    sql_file_path = PROJECT_ROOT / "db" / "002_create_analysis_views.sql"
+    execute_sql_file(connection, sql_file_path)
+
+
 def insert_raw_import(connection: psycopg.Connection, raw_import_record: dict) -> int:
     identity = (
         raw_import_record["source_system"],
