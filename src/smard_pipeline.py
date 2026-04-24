@@ -130,3 +130,20 @@ def ingest_smard_series(
         "measurement_row_count": measurement_row_count,
         "selected_chunk_count": len(selected_timestamps),
     }
+
+
+def ingest_smard_series_batch(
+    series_batch: dict[str, SmardSeries],
+    start_date: datetime,
+    end_date: datetime | None = None,
+) -> dict[str, dict[str, int]]:
+    results = {}
+
+    for series_name, series in series_batch.items():
+        results[series_name] = ingest_smard_series(
+            series=series,
+            start_date=start_date,
+            end_date=end_date,
+        )
+
+    return results

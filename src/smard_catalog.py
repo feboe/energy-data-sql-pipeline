@@ -258,16 +258,18 @@ FORECASTED_TOTAL_GENERATION = SmardSeries(
     ),
 )
 
-# FORECASTED_GRID_LOAD = SmardSeries(
-#     series_name="forecasted_grid_load",
-#     display_name="Forecasted grid load",
-#     category="forecasted_consumption",
-#     config=SmardConfig(
-#         smard_filter_id="411",
-#         region=DEFAULT_REGION,
-#         resolution=DEFAULT_RESOLUTION,
-#     ),
-# )
+# Filter 411 is not listed in the public OpenAPI enum, but the live SMARD
+# chart-data endpoint returns the forecasted grid-load series for DE/hour.
+FORECASTED_GRID_LOAD = SmardSeries(
+    series_name="forecasted_grid_load",
+    display_name="Forecasted grid load",
+    category="forecasted_consumption",
+    config=SmardConfig(
+        smard_filter_id="411",
+        region=DEFAULT_REGION,
+        resolution=DEFAULT_RESOLUTION,
+    ),
+)
 
 SMARD_SERIES = (
     LIGNITE_GENERATION,
@@ -292,7 +294,7 @@ SMARD_SERIES = (
     FORECASTED_OTHER_GENERATION,
     FORECASTED_WIND_AND_PHOTOVOLTAICS_GENERATION,
     FORECASTED_TOTAL_GENERATION,
-    # FORECASTED_GRID_LOAD,
+    FORECASTED_GRID_LOAD,
 )
 
 SMARD_SERIES_CATALOG = {series.series_name: series for series in SMARD_SERIES}
