@@ -6,6 +6,10 @@ import pandas as pd
 from src.transform_smard import MEASUREMENT_COLUMNS
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
+VIEW_SQL_FILES = (
+    "002_create_quality_views.sql",
+    "003_create_analysis_views.sql",
+)
 
 
 def open_connection(config: DatabaseConfig) -> psycopg.Connection:
@@ -33,8 +37,9 @@ def create_tables(connection: psycopg.Connection) -> None:
 
 
 def create_views(connection: psycopg.Connection) -> None:
-    sql_file_path = PROJECT_ROOT / "db" / "002_create_analysis_views.sql"
-    execute_sql_file(connection, sql_file_path)
+    for sql_file_name in VIEW_SQL_FILES:
+        sql_file_path = PROJECT_ROOT / "db" / sql_file_name
+        execute_sql_file(connection, sql_file_path)
 
 
 def insert_raw_import(connection: psycopg.Connection, raw_import_record: dict) -> int:
