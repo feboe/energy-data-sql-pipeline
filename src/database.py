@@ -155,3 +155,38 @@ def insert_measurements(
             records,
         )
     connection.commit()
+
+
+def insert_holidays(connection: psycopg.Connection, holidays_df: pd.DataFrame) -> int:
+    cols = [
+        "holiday_date",
+        "holiday_name",
+        "region",
+        "is_nationwide",
+        "source",
+    ]
+    records = [
+        tuple(None if pd.isna(value) else value for value in row)
+        for row in holidays_df[cols].itertuples(index=False, name=None)
+    ]
+
+    with connection.cursor() as cursor:
+        cursor.executemany(
+            """
+            INSERT INTO holidays (
+                holiday_date,
+                holiday_name,
+                region,
+                is_nationwide,
+                source
+            )
+            VALUES (%s, %s, %s, %s, %s)
+            ON CONFLICT (holiday_date, region, holiday_name)
+            DO UPDATE SET
+                is_nationwide = EXCLUDED.is_nationwide,
+                source = EXCLUDED.source;
+            """,
+            records,
+        )
+    connection.commit()
+    return len(records)

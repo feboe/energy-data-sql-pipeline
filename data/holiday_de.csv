@@ -1,0 +1,10 @@
+holiday_date,holiday_name,region,is_nationwide,source
+2023-01-01,Neujahr,DE,true,manual
+2023-04-07,Karfreitag,DE,true,manual
+2023-04-10,Ostermontag,DE,true,manual
+2023-05-01,Tag der Arbeit,DE,true,manual
+2023-05-18,Christi Himmelfahrt,DE,true,manual
+2023-05-29,Pfingstmontag,DE,true,manual
+2023-10-03,Tag der Deutschen Einheit,DE,true,manual
+2023-12-25,1. Weihnachtstag,DE,true,manual
+2023-12-26,2. Weihnachtstag,DE,true,manual
