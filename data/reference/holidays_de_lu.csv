@@ -1,0 +1,140 @@
+holiday_date,holiday_name,region,is_nationwide,source
+2020-01-01,New Year's Day,DE,True,python-holidays
+2020-01-01,New Year's Day,LU,True,python-holidays
+2020-04-10,Good Friday,DE,True,python-holidays
+2020-04-13,Easter Monday,DE,True,python-holidays
+2020-04-13,Easter Monday,LU,True,python-holidays
+2020-05-01,Labor Day,DE,True,python-holidays
+2020-05-01,Labor Day,LU,True,python-holidays
+2020-05-09,Europe Day,LU,True,python-holidays
+2020-05-21,Ascension Day,DE,True,python-holidays
+2020-05-21,Ascension Day,LU,True,python-holidays
+2020-06-01,Whit Monday,DE,True,python-holidays
+2020-06-01,Whit Monday,LU,True,python-holidays
+2020-06-23,National Day,LU,True,python-holidays
+2020-08-15,Assumption Day,LU,True,python-holidays
+2020-10-03,German Unity Day,DE,True,python-holidays
+2020-11-01,All Saints' Day,LU,True,python-holidays
+2020-12-25,Christmas Day,DE,True,python-holidays
+2020-12-25,Christmas Day,LU,True,python-holidays
+2020-12-26,Second Day of Christmas,DE,True,python-holidays
+2020-12-26,Saint Stephen's Day,LU,True,python-holidays
+2021-01-01,New Year's Day,DE,True,python-holidays
+2021-01-01,New Year's Day,LU,True,python-holidays
+2021-04-02,Good Friday,DE,True,python-holidays
+2021-04-05,Easter Monday,DE,True,python-holidays
+2021-04-05,Easter Monday,LU,True,python-holidays
+2021-05-01,Labor Day,DE,True,python-holidays
+2021-05-01,Labor Day,LU,True,python-holidays
+2021-05-09,Europe Day,LU,True,python-holidays
+2021-05-13,Ascension Day,DE,True,python-holidays
+2021-05-13,Ascension Day,LU,True,python-holidays
+2021-05-24,Whit Monday,DE,True,python-holidays
+2021-05-24,Whit Monday,LU,True,python-holidays
+2021-06-23,National Day,LU,True,python-holidays
+2021-08-15,Assumption Day,LU,True,python-holidays
+2021-10-03,German Unity Day,DE,True,python-holidays
+2021-11-01,All Saints' Day,LU,True,python-holidays
+2021-12-25,Christmas Day,DE,True,python-holidays
+2021-12-25,Christmas Day,LU,True,python-holidays
+2021-12-26,Second Day of Christmas,DE,True,python-holidays
+2021-12-26,Saint Stephen's Day,LU,True,python-holidays
+2022-01-01,New Year's Day,DE,True,python-holidays
+2022-01-01,New Year's Day,LU,True,python-holidays
+2022-04-15,Good Friday,DE,True,python-holidays
+2022-04-18,Easter Monday,DE,True,python-holidays
+2022-04-18,Easter Monday,LU,True,python-holidays
+2022-05-01,Labor Day,DE,True,python-holidays
+2022-05-01,Labor Day,LU,True,python-holidays
+2022-05-09,Europe Day,LU,True,python-holidays
+2022-05-26,Ascension Day,DE,True,python-holidays
+2022-05-26,Ascension Day,LU,True,python-holidays
+2022-06-06,Whit Monday,DE,True,python-holidays
+2022-06-06,Whit Monday,LU,True,python-holidays
+2022-06-23,National Day,LU,True,python-holidays
+2022-08-15,Assumption Day,LU,True,python-holidays
+2022-10-03,German Unity Day,DE,True,python-holidays
+2022-11-01,All Saints' Day,LU,True,python-holidays
+2022-12-25,Christmas Day,DE,True,python-holidays
+2022-12-25,Christmas Day,LU,True,python-holidays
+2022-12-26,Second Day of Christmas,DE,True,python-holidays
+2022-12-26,Saint Stephen's Day,LU,True,python-holidays
+2023-01-01,New Year's Day,DE,True,python-holidays
+2023-01-01,New Year's Day,LU,True,python-holidays
+2023-04-07,Good Friday,DE,True,python-holidays
+2023-04-10,Easter Monday,DE,True,python-holidays
+2023-04-10,Easter Monday,LU,True,python-holidays
+2023-05-01,Labor Day,DE,True,python-holidays
+2023-05-01,Labor Day,LU,True,python-holidays
+2023-05-09,Europe Day,LU,True,python-holidays
+2023-05-18,Ascension Day,DE,True,python-holidays
+2023-05-18,Ascension Day,LU,True,python-holidays
+2023-05-29,Whit Monday,DE,True,python-holidays
+2023-05-29,Whit Monday,LU,True,python-holidays
+2023-06-23,National Day,LU,True,python-holidays
+2023-08-15,Assumption Day,LU,True,python-holidays
+2023-10-03,German Unity Day,DE,True,python-holidays
+2023-11-01,All Saints' Day,LU,True,python-holidays
+2023-12-25,Christmas Day,DE,True,python-holidays
+2023-12-25,Christmas Day,LU,True,python-holidays
+2023-12-26,Second Day of Christmas,DE,True,python-holidays
+2023-12-26,Saint Stephen's Day,LU,True,python-holidays
+2024-01-01,New Year's Day,DE,True,python-holidays
+2024-01-01,New Year's Day,LU,True,python-holidays
+2024-03-29,Good Friday,DE,True,python-holidays
+2024-04-01,Easter Monday,DE,True,python-holidays
+2024-04-01,Easter Monday,LU,True,python-holidays
+2024-05-01,Labor Day,DE,True,python-holidays
+2024-05-01,Labor Day,LU,True,python-holidays
+2024-05-09,Ascension Day,DE,True,python-holidays
+2024-05-09,Ascension Day; Europe Day,LU,True,python-holidays
+2024-05-20,Whit Monday,DE,True,python-holidays
+2024-05-20,Whit Monday,LU,True,python-holidays
+2024-06-23,National Day,LU,True,python-holidays
+2024-08-15,Assumption Day,LU,True,python-holidays
+2024-10-03,German Unity Day,DE,True,python-holidays
+2024-11-01,All Saints' Day,LU,True,python-holidays
+2024-12-25,Christmas Day,DE,True,python-holidays
+2024-12-25,Christmas Day,LU,True,python-holidays
+2024-12-26,Second Day of Christmas,DE,True,python-holidays
+2024-12-26,Saint Stephen's Day,LU,True,python-holidays
+2025-01-01,New Year's Day,DE,True,python-holidays
+2025-01-01,New Year's Day,LU,True,python-holidays
+2025-04-18,Good Friday,DE,True,python-holidays
+2025-04-21,Easter Monday,DE,True,python-holidays
+2025-04-21,Easter Monday,LU,True,python-holidays
+2025-05-01,Labor Day,DE,True,python-holidays
+2025-05-01,Labor Day,LU,True,python-holidays
+2025-05-09,Europe Day,LU,True,python-holidays
+2025-05-29,Ascension Day,DE,True,python-holidays
+2025-05-29,Ascension Day,LU,True,python-holidays
+2025-06-09,Whit Monday,DE,True,python-holidays
+2025-06-09,Whit Monday,LU,True,python-holidays
+2025-06-23,National Day,LU,True,python-holidays
+2025-08-15,Assumption Day,LU,True,python-holidays
+2025-10-03,German Unity Day,DE,True,python-holidays
+2025-11-01,All Saints' Day,LU,True,python-holidays
+2025-12-25,Christmas Day,DE,True,python-holidays
+2025-12-25,Christmas Day,LU,True,python-holidays
+2025-12-26,Second Day of Christmas,DE,True,python-holidays
+2025-12-26,Saint Stephen's Day,LU,True,python-holidays
+2026-01-01,New Year's Day,DE,True,python-holidays
+2026-01-01,New Year's Day,LU,True,python-holidays
+2026-04-03,Good Friday,DE,True,python-holidays
+2026-04-06,Easter Monday,DE,True,python-holidays
+2026-04-06,Easter Monday,LU,True,python-holidays
+2026-05-01,Labor Day,DE,True,python-holidays
+2026-05-01,Labor Day,LU,True,python-holidays
+2026-05-09,Europe Day,LU,True,python-holidays
+2026-05-14,Ascension Day,DE,True,python-holidays
+2026-05-14,Ascension Day,LU,True,python-holidays
+2026-05-25,Whit Monday,DE,True,python-holidays
+2026-05-25,Whit Monday,LU,True,python-holidays
+2026-06-23,National Day,LU,True,python-holidays
+2026-08-15,Assumption Day,LU,True,python-holidays
+2026-10-03,German Unity Day,DE,True,python-holidays
+2026-11-01,All Saints' Day,LU,True,python-holidays
+2026-12-25,Christmas Day,DE,True,python-holidays
+2026-12-25,Christmas Day,LU,True,python-holidays
+2026-12-26,Second Day of Christmas,DE,True,python-holidays
+2026-12-26,Saint Stephen's Day,LU,True,python-holidays

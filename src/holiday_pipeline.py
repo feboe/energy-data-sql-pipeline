@@ -6,7 +6,7 @@ from src.config import load_database_config
 from src.database import create_tables, insert_holidays, open_connection
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_HOLIDAY_CSV_PATH = PROJECT_ROOT / "data" / "holiday_de.csv"
+DEFAULT_HOLIDAY_CSV_PATH = PROJECT_ROOT / "data" / "reference" / "holidays_de_lu.csv"
 
 HOLIDAY_COLUMNS = [
     "holiday_date",

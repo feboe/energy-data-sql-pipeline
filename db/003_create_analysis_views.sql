@@ -45,7 +45,7 @@ SELECT
     MAX(value) FILTER (WHERE series_name = 'forecasted_photovoltaics_generation') AS forecasted_solar_generation
 
 FROM cleaned_measurements
-WHERE resolution = 'hour'
+WHERE resolution = 'hour' AND region = 'DE-LU'
 GROUP BY
     region,
     resolution,
@@ -64,10 +64,10 @@ WITH market_with_local_time AS (
 holiday_flags AS (
     SELECT
         h.holiday_date,
-        BOOL_OR(h.is_nationwide) AS is_holiday,
+        BOOL_OR(h.is_nationwide) AS is_holiday_de_lu,
         STRING_AGG(DISTINCT h.holiday_name, ', ' ORDER BY h.holiday_name) AS holiday_name
     FROM holidays h
-    WHERE h.region = 'DE'
+    WHERE h.region = 'DE' OR h.region = 'LU'
     GROUP BY h.holiday_date
 )
 
@@ -86,7 +86,7 @@ SELECT
         ELSE FALSE
     END AS is_weekend,
 
-    COALESCE(h.is_holiday, FALSE) AS is_holiday,
+    COALESCE(h.is_holiday_de_lu, FALSE) AS is_holiday_de_lu,
     h.holiday_name,
 
     CASE
@@ -125,7 +125,7 @@ WITH base AS (
         m.local_hour,
         m.season,
         m.is_weekend,
-        m.is_holiday,
+        m.is_holiday_de_lu,
         m.holiday_name,
         m.day_night,
 
@@ -321,7 +321,7 @@ SELECT
     e.local_hour,
     e.season,
     e.is_weekend,
-    e.is_holiday,
+    e.is_holiday_de_lu,
     e.holiday_name,
     e.day_night,
 
@@ -390,7 +390,7 @@ SELECT
     (ARRAY_AGG(m.local_hour ORDER BY m.observation_timestamp))[1] AS start_local_hour,
 
     BOOL_OR(m.is_weekend) AS contains_weekend,
-    BOOL_OR(m.is_holiday) AS contains_holiday,
+    BOOL_OR(m.is_holiday_de_lu) AS contains_holiday,
 
     -- price metrics
     AVG(m.day_ahead_price) AS avg_day_ahead_price,
