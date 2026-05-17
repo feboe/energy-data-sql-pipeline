@@ -39,5 +39,7 @@ htmlcov/
 .DS_Store
 Thumbs.db
 
-# Folders
-notebooks/
+# Notebooks
+notebooks/*
+!notebooks/
+!notebooks/generate_negative_price_doc_charts.ipynb
