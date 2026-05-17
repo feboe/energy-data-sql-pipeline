@@ -92,6 +92,13 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
+For development and tests, install the extra test dependency and run pytest:
+
+```powershell
+pip install -r requirements-dev.txt
+python -m pytest
+```
+
 Create the environment file:
 
 ```powershell
