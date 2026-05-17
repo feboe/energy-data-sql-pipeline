@@ -40,7 +40,7 @@ WITH expected_series AS (
         region,
         resolution
     FROM measurements
-    WHERE region = 'DE'
+    WHERE region = 'DE-LU'
         AND resolution = 'hour'
         AND series_name <> 'nuclear_generation'
 ),
@@ -49,7 +49,7 @@ bounds AS (
         MIN(observation_timestamp) AS min_ts,
         MAX(observation_timestamp) AS max_ts
     FROM measurements
-    WHERE region = 'DE'
+    WHERE region = 'DE-LU'
         AND resolution = 'hour'
 ),
 expected_hours AS (
