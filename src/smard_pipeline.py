@@ -120,8 +120,11 @@ def ingest_smard_series(
             )
 
             if not filtered_measurements_df.empty:
-                insert_measurements(connection, filtered_measurements_df)
-                measurement_row_count += len(filtered_measurements_df)
+                inserted_row_count = insert_measurements(
+                    connection,
+                    filtered_measurements_df,
+                )
+                measurement_row_count += inserted_row_count
 
             processed_chunk_count += 1
 

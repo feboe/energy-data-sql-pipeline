@@ -121,12 +121,16 @@ def insert_raw_import(connection: psycopg.Connection, raw_import_record: dict) -
 
 def insert_measurements(
     connection: psycopg.Connection, measurements_df: pd.DataFrame
-) -> None:
+) -> int:
     cols = MEASUREMENT_COLUMNS
     records = [
         tuple(None if pd.isna(v) else v for v in row)
         for row in measurements_df[cols].itertuples(index=False, name=None)
     ]
+
+    if not records:
+        return 0
+
     with connection.cursor() as cursor:
         cursor.executemany(
             """
@@ -154,7 +158,9 @@ def insert_measurements(
             """,
             records,
         )
+        inserted_row_count = cursor.rowcount
     connection.commit()
+    return inserted_row_count
 
 
 def insert_holidays(connection: psycopg.Connection, holidays_df: pd.DataFrame) -> int:
