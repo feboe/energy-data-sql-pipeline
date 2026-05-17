@@ -1,3 +1,5 @@
+"""Load and ingest holiday reference data for calendar features."""
+
 from pathlib import Path
 
 import pandas as pd
@@ -18,6 +20,7 @@ HOLIDAY_COLUMNS = [
 
 
 def load_holidays_csv(csv_path: Path = DEFAULT_HOLIDAY_CSV_PATH) -> pd.DataFrame:
+    """Read, validate, and normalize the DE/LU holiday reference CSV."""
     holidays_df = pd.read_csv(csv_path)
     missing_columns = set(HOLIDAY_COLUMNS) - set(holidays_df.columns)
 
@@ -51,6 +54,7 @@ def load_holidays_csv(csv_path: Path = DEFAULT_HOLIDAY_CSV_PATH) -> pd.DataFrame
 
 
 def ingest_holidays(csv_path: Path = DEFAULT_HOLIDAY_CSV_PATH) -> int:
+    """Load holiday reference rows into PostgreSQL and return the row count."""
     database_config = load_database_config()
     holidays_df = load_holidays_csv(csv_path)
 
@@ -60,6 +64,7 @@ def ingest_holidays(csv_path: Path = DEFAULT_HOLIDAY_CSV_PATH) -> int:
 
 
 def _parse_boolean(value: object) -> bool:
+    """Parse common CSV boolean representations into a Python bool."""
     if isinstance(value, bool):
         return value
 

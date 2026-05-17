@@ -1,9 +1,13 @@
+"""Catalog of SMARD series used by the analysis pipeline."""
+
 from dataclasses import dataclass
 from src.smard_client import SmardConfig
 
 
 @dataclass(frozen=True)
 class SmardSeries:
+    """Metadata and API configuration for one SMARD series."""
+
     series_name: str
     display_name: str
     category: str

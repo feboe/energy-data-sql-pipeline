@@ -1,3 +1,5 @@
+"""Ingestion flow for loading selected SMARD series into PostgreSQL."""
+
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
@@ -18,11 +20,11 @@ from src.transform_smard import (
     timestamp_ms_to_datetime,
 )
 
-
 LOCAL_TIMEZONE = ZoneInfo("Europe/Berlin")
 
 
 def normalize_datetime_to_utc(value: datetime) -> datetime:
+    """Normalize a naive or aware datetime to UTC for API and database filtering."""
     if value.tzinfo is None:
         value = value.replace(tzinfo=LOCAL_TIMEZONE)
 
@@ -34,6 +36,7 @@ def filter_chunk_timestamps(
     start_date: datetime,
     end_date: datetime | None = None,
 ) -> list[int]:
+    """Select SMARD payload chunks that overlap the requested time range."""
     start_utc = normalize_datetime_to_utc(start_date)
     end_utc = normalize_datetime_to_utc(end_date) if end_date is not None else None
 
@@ -64,6 +67,7 @@ def filter_measurements_for_period(
     start_date: datetime,
     end_date: datetime | None = None,
 ) -> pd.DataFrame:
+    """Filter normalized measurements to the requested inclusive time range."""
     start_utc = normalize_datetime_to_utc(start_date)
     mask = measurements_df["observation_timestamp"] >= start_utc
 
@@ -79,6 +83,7 @@ def ingest_smard_series(
     start_date: datetime,
     end_date: datetime | None = None,
 ) -> dict[str, int]:
+    """Fetch, transform, and insert one SMARD series for a time range."""
     database_config = load_database_config()
     available_timestamps = get_timestamps(series.config)
     selected_timestamps = filter_chunk_timestamps(
@@ -140,6 +145,7 @@ def ingest_smard_series_batch(
     start_date: datetime,
     end_date: datetime | None = None,
 ) -> dict[str, dict[str, int]]:
+    """Ingest a mapping of SMARD series and collect per-series load counts."""
     results = {}
 
     for series_name, series in series_batch.items():

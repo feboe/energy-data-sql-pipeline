@@ -1,9 +1,12 @@
+"""Configuration helpers for local environment and database settings."""
+
 import os
 from pathlib import Path
 from dataclasses import dataclass
 
 
 def load_env_file(env_path: Path = Path(".env")) -> None:
+    """Load key-value pairs from an env file without overwriting existing values."""
     if not env_path.exists():
         return
 
@@ -19,6 +22,8 @@ def load_env_file(env_path: Path = Path(".env")) -> None:
 
 @dataclass(frozen=True)
 class DatabaseConfig:
+    """Connection settings for the local PostgreSQL database."""
+
     host: str = "localhost"
     port: int = 5432
     database: str = "energy_data"
@@ -27,6 +32,7 @@ class DatabaseConfig:
 
 
 def load_database_config() -> DatabaseConfig:
+    """Build a database configuration from environment variables and defaults."""
     load_env_file()
     return DatabaseConfig(
         host=os.getenv("POSTGRES_HOST", "localhost"),

@@ -1,3 +1,5 @@
+"""Run the local holiday and SMARD ingestion workflow."""
+
 from datetime import datetime
 from pathlib import Path
 import sys
@@ -19,6 +21,7 @@ SMARD_SERIES_BATCH = SMARD_SERIES_CATALOG
 
 
 def main() -> None:
+    """Load reference data, ingest SMARD series, and refresh SQL views."""
     load_env_file(PROJECT_ROOT / ".env")
 
     holiday_row_count = ingest_holidays(HOLIDAY_CSV_PATH)

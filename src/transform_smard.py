@@ -1,3 +1,5 @@
+"""Transform SMARD API payloads into database-ready records."""
+
 from datetime import datetime, timezone
 
 import pandas as pd
@@ -20,6 +22,7 @@ MEASUREMENT_COLUMNS = [
 
 
 def timestamp_ms_to_datetime(timestamp: int) -> datetime:
+    """Convert a Unix timestamp in milliseconds to a UTC datetime."""
     return datetime.fromtimestamp(timestamp / 1000, tz=timezone.utc)
 
 
@@ -31,6 +34,7 @@ def build_raw_import_record(
     unit: str,
     source_url: str,
 ) -> dict:
+    """Build the raw import metadata row for a fetched SMARD payload."""
     timestamp_dt = timestamp_ms_to_datetime(timestamp)
     return {
         "source_system": SOURCE_SYSTEM,
@@ -53,6 +57,7 @@ def extract_measurements(
     series_name: str,
     unit: str,
 ) -> pd.DataFrame:
+    """Extract normalized measurement rows from a SMARD payload."""
 
     if "series" not in payload:
         raise ValueError("Payload does not contain 'series' key")

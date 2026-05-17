@@ -1,3 +1,5 @@
+"""Database access helpers for schema setup and data ingestion."""
+
 import psycopg
 from pathlib import Path
 from psycopg.types.json import Jsonb
@@ -13,6 +15,7 @@ VIEW_SQL_FILES = (
 
 
 def open_connection(config: DatabaseConfig) -> psycopg.Connection:
+    """Open a PostgreSQL connection from a database configuration."""
     return psycopg.connect(
         dbname=config.database,
         user=config.user,
@@ -23,6 +26,7 @@ def open_connection(config: DatabaseConfig) -> psycopg.Connection:
 
 
 def execute_sql_file(connection: psycopg.Connection, sql_file_path: Path) -> None:
+    """Execute a SQL file inside the provided connection and commit it."""
     with open(sql_file_path, "r", encoding="utf-8") as file:
         sql_text = file.read()
 
@@ -32,17 +36,20 @@ def execute_sql_file(connection: psycopg.Connection, sql_file_path: Path) -> Non
 
 
 def create_tables(connection: psycopg.Connection) -> None:
+    """Create the base database tables if they do not already exist."""
     sql_file_path = PROJECT_ROOT / "db" / "001_create_tables.sql"
     execute_sql_file(connection, sql_file_path)
 
 
 def create_views(connection: psycopg.Connection) -> None:
+    """Create or refresh the quality and analysis views."""
     for sql_file_name in VIEW_SQL_FILES:
         sql_file_path = PROJECT_ROOT / "db" / sql_file_name
         execute_sql_file(connection, sql_file_path)
 
 
 def insert_raw_import(connection: psycopg.Connection, raw_import_record: dict) -> int:
+    """Insert or find a raw import row and return its database id."""
     identity = (
         raw_import_record["source_system"],
         raw_import_record["source_series_id"],
@@ -122,6 +129,7 @@ def insert_raw_import(connection: psycopg.Connection, raw_import_record: dict) -
 def insert_measurements(
     connection: psycopg.Connection, measurements_df: pd.DataFrame
 ) -> int:
+    """Insert normalized measurements and return the number of inserted rows."""
     cols = MEASUREMENT_COLUMNS
     records = [
         tuple(None if pd.isna(v) else v for v in row)
@@ -164,6 +172,7 @@ def insert_measurements(
 
 
 def insert_holidays(connection: psycopg.Connection, holidays_df: pd.DataFrame) -> int:
+    """Upsert holiday rows and return the number of input records processed."""
     cols = [
         "holiday_date",
         "holiday_name",

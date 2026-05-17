@@ -1,8 +1,9 @@
+"""Generate the DE/LU holiday reference CSV used by the pipeline."""
+
 from pathlib import Path
 
 import holidays
 import pandas as pd
-
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_OUTPUT_PATH = PROJECT_ROOT / "data" / "reference" / "holidays_de_lu.csv"
@@ -11,6 +12,7 @@ DEFAULT_END_YEAR = 2026
 
 
 def build_holiday_dataframe(start_year: int, end_year: int) -> pd.DataFrame:
+    """Build a sorted holiday reference DataFrame for Germany and Luxembourg."""
     rows = []
 
     de_holidays = holidays.country_holidays(
