@@ -10,6 +10,8 @@ The guiding question is simple: when negative prices occur, what do they look li
 
 The analysis uses hourly SMARD data for the DE-LU bidding zone and currently covers the full calendar years 2022 to 2025. The pipeline loads day-ahead prices, grid load, wind generation, solar generation, and corresponding forecast values where available. A separate holiday reference table is used to distinguish weekdays, weekends, and holidays.
 
+Important comparability note: the European day-ahead market switched from 60-minute to 15-minute market time units on 30 September 2025 for delivery from 1 October 2025. The analysis continues to use the hourly SMARD price series, so Q4 2025 results should be read as an hourly price-index view rather than native 15-minute market behavior.
+
 Important definitions used in the analysis:
 
 - Negative price hour: an hour where `day_ahead_price < 0`.
@@ -19,6 +21,7 @@ Important definitions used in the analysis:
 - Flexible load window: a negative price event that is at least as long as a given minimum runtime.
 - Price integral: the sum of hourly day-ahead prices within a negative price event. The chart uses the absolute value so larger values mean a stronger negative-price signal.
 - Units: day-ahead prices are in EUR/MWh; load, generation, and residual-load values use the hourly SMARD MWh series.
+- 2025 hourly price caveat: from 1 October 2025 onward, hourly day-ahead prices are not directly equivalent to earlier native hourly market products because the underlying market time unit changed to 15 minutes.
 
 The analysis is descriptive. It shows patterns and associations in the available data, but it does not claim to explain the full market mechanism behind negative prices.
 
@@ -114,6 +117,7 @@ For flexible loads, the key result is not simply that negative prices exist. The
 
 - The analysis is descriptive and does not estimate causal effects.
 - Residual load only uses wind and solar generation.
+- From 1 October 2025 onward, the hourly day-ahead price series should be interpreted as an hourly index over a 15-minute market design, which affects direct comparison of event duration and hourly negative-price counts with earlier years.
 - The analysis does not include grid constraints, plant-level constraints, bidding strategies, balancing markets, or cross-border effects.
 - Flexible load screening only checks event duration and a simple day-ahead price-integral signal. It does not model profitability.
 - Negative prices are a clear boundary for a first analysis, but low positive prices can also be relevant for flexible demand.

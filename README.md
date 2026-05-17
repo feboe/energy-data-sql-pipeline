@@ -27,6 +27,8 @@ The analysis uses hourly SMARD data for the DE-LU bidding zone for the full cale
 
 The main derived metrics are residual load, forecasted residual load, continuous negative price events, event duration, and a simple price-depth measure per event.
 
+Note on 2025 comparability: the European day-ahead market switched from 60-minute to 15-minute market time units on 30 September 2025 for delivery from 1 October 2025. This project still uses the hourly SMARD price series, so Q4 2025 should be treated as an hourly price index view rather than the native 15-minute market granularity.
+
 ## What Was Built Technically?
 
 The repository contains a small Python and PostgreSQL data pipeline:
@@ -64,9 +66,14 @@ The number of negative price events increases, while the median event duration s
 
 - The analysis is descriptive and does not estimate causal effects.
 - Residual load only uses wind and solar generation.
+- From 1 October 2025 onward, hourly day-ahead prices are less directly comparable with earlier native hourly products because the underlying market time unit changed to 15 minutes.
 - The project does not include grid constraints, plant-level constraints, bidding strategies, balancing markets, or cross-border effects.
 - Flexible load screening only checks event duration and a simple price-depth measure. It does not model profitability.
 - Low positive prices can also be relevant for flexible demand, but this project focuses on prices below zero.
+
+## Data Validation
+
+The database includes quality views for missing hourly measurements and basic impossible values. The main analysis and quality checks are scoped to the DE-LU bidding zone and hourly resolution.
 
 ## Setup
 
