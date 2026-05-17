@@ -259,7 +259,7 @@ FORECASTED_TOTAL_GENERATION = SmardSeries(
 )
 
 # Filter 411 is not listed in the public OpenAPI enum, but the live SMARD
-# chart-data endpoint returns the forecasted grid-load series for DE/hour.
+# chart-data endpoint returns the forecasted grid-load series for DE-LU/hour.
 FORECASTED_GRID_LOAD = SmardSeries(
     series_name="forecasted_grid_load",
     display_name="Forecasted grid load",
