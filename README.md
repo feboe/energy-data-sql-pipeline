@@ -75,6 +75,8 @@ The number of negative price events increases, while the median event duration s
 
 The database includes quality views for missing hourly measurements and basic impossible values. The main analysis and quality checks are scoped to the DE-LU bidding zone and hourly resolution.
 
+The loaded dataset contains 200 null measurement values, including 194 forecasted grid-load values concentrated in several time blocks. These do not directly affect negative-price event counts, but they reduce the sample size for forecasted residual-load analysis.
+
 ## Setup
 
 Requirements:
