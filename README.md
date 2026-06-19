@@ -116,7 +116,7 @@ docker compose up -d
 Load holidays, ingest SMARD data, and recreate SQL views:
 
 ```powershell
-python scripts/ingest_holidays_and_smard.py
+.\.venv\Scripts\python.exe scripts\ingest_holidays_and_smard.py
 ```
 
 Generate the documentation charts by opening and running:
