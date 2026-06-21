@@ -82,12 +82,9 @@ The loaded dataset contains 200 null measurement values, including 194 forecaste
 Requirements:
 
 - Python 3.10 or newer
-- `python3-venv` installed on Ubuntu
 - Docker with Docker Compose
-- A local `.env` file based on `.env.example`
-- A notebook-capable environment such as VS Code or Jupyter
 
-Install dependencies:
+Install the pipeline dependencies:
 
 ```bash
 python3 -m venv .venv
@@ -95,7 +92,7 @@ source .venv/bin/activate
 python -m pip install -r requirements.txt
 ```
 
-For development and tests, install the extra test dependency and run pytest:
+For tests and chart regeneration, install the extra dependencies and run pytest:
 
 ```bash
 python -m pip install -r requirements-dev.txt
