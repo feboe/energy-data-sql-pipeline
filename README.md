@@ -82,41 +82,45 @@ The loaded dataset contains 200 null measurement values, including 194 forecaste
 Requirements:
 
 - Python 3.10 or newer
+- `python3-venv` installed on Ubuntu
 - Docker with Docker Compose
 - A local `.env` file based on `.env.example`
 - A notebook-capable environment such as VS Code or Jupyter
 
 Install dependencies:
 
-```powershell
-python -m venv .venv
-.\.venv\Scripts\activate
-pip install -r requirements.txt
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
 ```
 
 For development and tests, install the extra test dependency and run pytest:
 
-```powershell
-pip install -r requirements-dev.txt
+```bash
+python -m pip install -r requirements-dev.txt
 python -m pytest
 ```
 
 Create the environment file:
 
-```powershell
-copy .env.example .env
+```bash
+cp .env.example .env
 ```
+
+After copying `.env.example` to `.env`, adjust `POSTGRES_USER` and
+`POSTGRES_PASSWORD` if you do not want to use the local defaults. If you change these values after PostgreSQL has already initialized its Docker volume, reset the volume or keep using the original credentials.
 
 Start PostgreSQL:
 
-```powershell
+```bash
 docker compose up -d
 ```
 
 Load holidays, ingest SMARD data, and recreate SQL views:
 
-```powershell
-.\.venv\Scripts\python.exe scripts\ingest_holidays_and_smard.py
+```bash
+python scripts/ingest_holidays_and_smard.py
 ```
 
 Generate the documentation charts by opening and running:
