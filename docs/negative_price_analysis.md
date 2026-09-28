@@ -10,7 +10,9 @@ The guiding question is simple: when negative prices occur, what do they look li
 
 The analysis uses hourly SMARD data for the DE-LU bidding zone and currently covers the full calendar years 2022 to 2025. The pipeline loads day-ahead prices, grid load, wind generation, solar generation, and corresponding forecast values where available. A separate holiday reference table is used to distinguish weekdays, weekends, and holidays.
 
-Important comparability note: the European day-ahead market switched from 60-minute to 15-minute market time units on 30 September 2025 for delivery from 1 October 2025. The analysis continues to use the hourly SMARD price series, so Q4 2025 results should be read as an hourly price-index view rather than native 15-minute market behavior.
+Event summaries use start-year cohorts: an event that crosses New Year remains whole and is assigned to the year in which it starts. This differs from calendar-year negative-price hours, which count each negative hour in the year where it occurs.
+
+Q4 2025 method note: this analysis uses the SMARD hourly series. From Q4 2025 onward, each hourly value is the mean of the four native 15-minute values; an hour is negative only when that hourly mean is negative. Counts based on native 15-minute values or other aggregation rules can therefore differ.
 
 Important definitions used in the analysis:
 

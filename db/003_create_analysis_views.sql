@@ -448,15 +448,15 @@ CREATE OR REPLACE VIEW yearly_negative_price_event_summary AS
 SELECT
     e.region,
     e.resolution,
-    e.start_year AS year,
+    e.start_year AS event_start_year,
 
-    COUNT(*) AS number_of_negative_price_events,
-    SUM(e.duration_hours) AS negative_price_hours,
+    COUNT(*) AS events_started_in_year,
+    SUM(e.duration_hours) AS hours_in_events_started_in_year,
 
-    AVG(e.duration_hours) AS avg_event_duration_hours,
-    PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY e.duration_hours) AS median_event_duration_hours,
-    MIN(e.duration_hours) AS min_event_duration_hours,
-    MAX(e.duration_hours) AS max_event_duration_hours,
+    AVG(e.duration_hours) AS avg_event_duration_hours_for_events_started_in_year,
+    PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY e.duration_hours) AS median_event_duration_hours_for_events_started_in_year,
+    MIN(e.duration_hours) AS min_event_duration_hours_for_events_started_in_year,
+    MAX(e.duration_hours) AS max_event_duration_hours_for_events_started_in_year,
 
     AVG(e.avg_day_ahead_price) AS avg_event_avg_day_ahead_price,
     MIN(e.min_day_ahead_price) AS yearly_min_day_ahead_price,

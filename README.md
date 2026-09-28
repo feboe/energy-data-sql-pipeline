@@ -27,7 +27,9 @@ The analysis uses hourly SMARD data for the DE-LU bidding zone for the full cale
 
 The main derived metrics are residual load, forecasted residual load, continuous negative price events, event duration, and a simple price-depth measure per event.
 
-Note on 2025 comparability: the European day-ahead market switched from 60-minute to 15-minute market time units on 30 September 2025 for delivery from 1 October 2025. This project still uses the hourly SMARD price series, so Q4 2025 should be treated as an hourly price index view rather than the native 15-minute market granularity.
+Event summaries use start-year cohorts: an event that crosses New Year remains whole and is assigned to the year in which it starts. This differs from calendar-year negative-price hours, which count each negative hour in the year where it occurs.
+
+Q4 2025 method note: this analysis uses the SMARD hourly series. From Q4 2025 onward, each hourly value is the mean of the four native 15-minute values; an hour is negative only when that hourly mean is negative. Counts based on native 15-minute values or other aggregation rules can therefore differ.
 
 ## What Was Built Technically?
 
@@ -97,6 +99,12 @@ For tests and chart regeneration, install the extra dependencies and run pytest:
 ```bash
 python -m pip install -r requirements-dev.txt
 python -m pytest
+```
+
+With PostgreSQL running, execute the SQL integration tests explicitly:
+
+```bash
+python -m pytest -m integration
 ```
 
 Create the environment file:
